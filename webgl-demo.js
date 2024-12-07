@@ -2,7 +2,6 @@
 import { initBuffers } from "./init-buffers.js";
 import { drawScene } from "./draw-scene.js";
 
-// let squareRotation = 0.0;
 let cubeRotation = 0.0;
 let deltaTime = 0;
 
@@ -23,17 +22,7 @@ function main() {
   // Clear color buffer w/specified clear color
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  // Vertex shader - privides the clip space coordinates
-  // Vertex shader program
-//   const vsSource = `
-// attribute vec4 aVertexPosition;
-// uniform mat4 uModelViewMatrix;
-// uniform mat4 uProjectionMatrix;
-// void main() {
-//   gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-// }
-// `;
-// Vertex shader program
+// Vertex shader program - provides the clip space coordinates
 
 const vsSource = `
     attribute vec4 aVertexPosition;
@@ -50,16 +39,6 @@ const vsSource = `
     }
   `;
   // Fragment shader - compute the color of each pixel of the primitive being drawn
-//   const fsSource = `
-//   precision mediump float;
-//   uniform vec4 uSquareColor;  
-//   void main() {
-//         //gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black
-//         gl_FragColor = uSquareColor;
-//     }
-// `;
-// Fragment shader program
-
 const fsSource = `
     precision mediump float;
     varying lowp vec4 vColor;
@@ -81,26 +60,7 @@ const fsSource = `
   gl.useProgram(shaderProgram);
   gl.uniform4fv(uSquareColorLocation, squareColor);
 
-  // Collect all the info needed to use the shader program
-  // Look up which attribute our shader program is using
-  // for aVertexPosition and look up uniform locations.
-
-  
-
-  // const programInfo = {
-  //   program: shaderProgram,
-  //   attribLocations: {
-  //     vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
-  //   },
-  //   uniformLocations: {
-  //     // squareColor: gl.getUniformLocation(shaderProgram, 'uSquareColor'),
-  //     projectionMatrix: gl.getUniformLocation(shaderProgram,
-  //       "uProjectionMatrix"),
-  //     modelViewMatrix: gl.getUniformLocation(shaderProgram,
-  //       "uModelViewMatrix"),
-  //   },
-  // };
-  // Collect all the info needed to use the shader program.
+// Collect all the info needed to use the shader program.
 // Look up which attributes our shader program is using
 // for aVertexPosition, aVertexColor and also
 // look up uniform locations.

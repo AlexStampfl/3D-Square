@@ -52,24 +52,6 @@ const positions = [
 }
 
 function initColorBuffer(gl) {
-  // const colors = [
-  //   1.0,
-  //   1.0,
-  //   1.0,
-  //   1.0, // white
-  //   1.0,
-  //   0.0,
-  //   0.0,
-  //   1.0, // red
-  //   0.0,
-  //   1.0,
-  //   0.0,
-  //   1.0, // green
-  //   0.0,
-  //   0.0,
-  //   1.0,
-  //   1.0, // blue
-  // ];
 
   const faceColors = [
     [1.0, 1.0, 1.0, 1.0], // Front face: white

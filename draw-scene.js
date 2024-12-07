@@ -37,13 +37,6 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
     [-0.0, 0.0, -6.0],
   ); // amount to translate
 
-  // mat4.rotate(
-  //   modelViewMatrix, // destination matrix
-  //   modelViewMatrix, // matrix to rotate
-  //   squareRotation, // amount to rotate in radians
-  //   [0, 0, 1],
-  // ); // axis to rotate around
-
   mat4.rotate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
@@ -88,19 +81,12 @@ gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices);
     modelViewMatrix,
   );
 
-  // {
-  //   const offset = 0;
-  //   const vertexCount = 4;
-  //   gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
-  // }
-
   {
     const vertexCount = 36;
     const type = gl.UNSIGNED_SHORT;
     const offset = 0;
     gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
   }
-
 }
 
 // Tell WebGL how to pull out the positions from the position
