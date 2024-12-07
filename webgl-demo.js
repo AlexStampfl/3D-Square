@@ -2,7 +2,8 @@
 import { initBuffers } from "./init-buffers.js";
 import { drawScene } from "./draw-scene.js";
 
-let squareRotation = 0.0;
+// let squareRotation = 0.0;
+let cubeRotation = 0.0;
 let deltaTime = 0;
 
 main();
@@ -134,8 +135,8 @@ function render(now) {
   deltaTime = now - then;
   then = now;
 
-  drawScene(gl, programInfo, buffers, squareRotation);
-  squareRotation += deltaTime;
+  drawScene(gl, programInfo, buffers, cubeRotation);
+  cubeRotation += deltaTime;
 
   requestAnimationFrame(render);
 }
@@ -205,26 +206,3 @@ function loadShader(gl, type, source) {
 
   return shader;
 }
-
-
-
-
-// const positions = [
-//     // Front face
-//     -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
-
-//     // Back face
-//     -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0,
-
-//     // Top face
-//     -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
-
-//     // Bottom face
-//     -1.0, -10, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
-
-//     // Right face
-//     1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0
-
-//     // Left face
-//     -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0,
-// ];
