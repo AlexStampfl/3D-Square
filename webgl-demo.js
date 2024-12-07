@@ -1,6 +1,6 @@
 
-import { initBuffers } from "./init-buffers.js";
-import { drawScene } from "./draw-scene.js";
+import { initBuffers } from "./buffer.js";
+import { drawScene } from "./draw.js";
 
 let cubeRotation = 0.0;
 let deltaTime = 0;
@@ -23,7 +23,6 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
 // Vertex shader program - provides the clip space coordinates
-
 const vsSource = `
     attribute vec4 aVertexPosition;
     attribute vec4 aVertexColor;
@@ -38,6 +37,7 @@ const vsSource = `
       vColor = aVertexColor;
     }
   `;
+
   // Fragment shader - compute the color of each pixel of the primitive being drawn
 const fsSource = `
     precision mediump float;
@@ -50,20 +50,13 @@ const fsSource = `
     }
   `;
 
-  /**
-   * Initialize a shader program; this is where all the lighting
-   * for the vertices and so far is established
-   */
+  //Initialize a shader program; where all lighting for vertices is established
   const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
   const squareColor = [1.0, 1.0, 1.0, 1.0];
   const uSquareColorLocation = gl.getUniformLocation(shaderProgram, 'uSquareColor');
   gl.useProgram(shaderProgram);
   gl.uniform4fv(uSquareColorLocation, squareColor);
 
-// Collect all the info needed to use the shader program.
-// Look up which attributes our shader program is using
-// for aVertexPosition, aVertexColor and also
-// look up uniform locations.
 const programInfo = {
   program: shaderProgram,
   attribLocations: {
@@ -79,14 +72,11 @@ const programInfo = {
   // Debugging: log uniform locations
   console.log('Projection Matrix Location:', programInfo.uniformLocations.projectionMatrix);
   console.log('Model-View Matrix Location:', programInfo.uniformLocations.modelViewMatrix);
-  // gl.uniform4fc(programInfo.uniformLocations.squareColor, squareColor);
 
-  // Here's where we call the routine that builds all the
-// objects we'll be drawing.
+// Here's where we call the routine that builds all the objects we'll be drawing.
 const buffers = initBuffers(gl);
 
 // Draw the scene
-// drawScene(gl, programInfo, buffers);
 let then = 0;
 
 // Draw the scene repeatedly
@@ -110,9 +100,7 @@ requestAnimationFrame(render);
  * 4. Link them together
  */
 
-//
 // Initialize a shader program, so WebGL knows how to draw our data
-//
 function initShaderProgram(gl, vsSource, fsSource) {
   const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
   const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
@@ -138,23 +126,17 @@ function initShaderProgram(gl, vsSource, fsSource) {
   return shaderProgram;
 }
 
-//
-// creates a shader of the given type, uploads the source and
-// compiles it.
-//
+// creates a shader of the given type, uploads the source and compiles it.
 function loadShader(gl, type, source) {
   const shader = gl.createShader(type);
 
   // Send the source to the shader object
-
   gl.shaderSource(shader, source);
 
   // Compile the shader program
-
   gl.compileShader(shader);
 
   // See if it compiled successfully
-
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
     console.log(`Error compiling shader (${type === gl.VERTEX_SHADER ? 'VERTEX' : 'FRAGMENT'}):`, gl.getShaderInfoLog(shader))
     alert(
