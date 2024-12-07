@@ -1,8 +1,6 @@
 function initBuffers(gl) {
   const positionBuffer = initPositionBuffer(gl);
-
   const colorBuffer = initColorBuffer(gl);
-
   const indexBuffer = initIndexBuffer(gl);
 
 return {
@@ -20,23 +18,17 @@ function initPositionBuffer(gl) {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
   // Now create an array of positions for the square.
-
 const positions = [
   // Front face
   -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
-
   // Back face
   -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0,
-
   // Top face
   -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
-
   // Bottom face
   -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
-
   // Right face
   1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
-
   // Left face
   -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0,
 ];
@@ -58,7 +50,6 @@ function initColorBuffer(gl) {
   ];
   
   // Convert the array of colors into a table for all the vertices.
-
   var colors = [];
   
   for (var j = 0; j < faceColors.length; ++j) {
@@ -121,7 +112,7 @@ function initIndexBuffer(gl) {
     23, // left
   ];
 
-  // Now send the element array to GL
+  // Send the element array to GL
   gl.bufferData(
     gl.ELEMENT_ARRAY_BUFFER,
     new Uint16Array(indices),

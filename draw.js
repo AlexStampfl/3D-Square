@@ -4,7 +4,7 @@ function drawScene(gl, programInfo, buffers, cubeRotation) {
   gl.enable(gl.DEPTH_TEST); // Enable depth testing
   gl.depthFunc(gl.LEQUAL); // Near things obscure far things
 
-  // Clear the canvas before we start drawing on it.
+  // Clear the canvas before drawing on it.
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   const fieldOfView = (45 * Math.PI) / 180; // in radians

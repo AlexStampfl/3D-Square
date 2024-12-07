@@ -22,7 +22,7 @@ function main() {
   // Clear color buffer w/specified clear color
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-// Vertex shader program - provides the clip space coordinates
+// Vertex shader - provides the clip space coordinates
 const vsSource = `
     attribute vec4 aVertexPosition;
     attribute vec4 aVertexColor;
@@ -92,13 +92,6 @@ function render(now) {
 }
 requestAnimationFrame(render);
 }
-
-/**
- * 1. Define shaders
- * 2. Pass them to WebGL
- * 3. Compile them
- * 4. Link them together
- */
 
 // Initialize a shader program, so WebGL knows how to draw our data
 function initShaderProgram(gl, vsSource, fsSource) {
