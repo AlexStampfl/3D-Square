@@ -21,23 +21,51 @@ function main() {
 
   // Vertex shader - privides the clip space coordinates
   // Vertex shader program
-  const vsSource = `
-attribute vec4 aVertexPosition;
-uniform mat4 uModelViewMatrix;
-uniform mat4 uProjectionMatrix;
-void main() {
-  gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-}
-`;
-  // Fragment shader - compute the color of each pixel of the primitive being drawn
-  const fsSource = `
-  precision mediump float;
-  uniform vec4 uSquareColor;  
-  void main() {
-        //gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black
-        gl_FragColor = uSquareColor;
+//   const vsSource = `
+// attribute vec4 aVertexPosition;
+// uniform mat4 uModelViewMatrix;
+// uniform mat4 uProjectionMatrix;
+// void main() {
+//   gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+// }
+// `;
+// Vertex shader program
+
+const vsSource = `
+    attribute vec4 aVertexPosition;
+    attribute vec4 aVertexColor;
+
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    varying lowp vec4 vColor;
+
+    void main(void) {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+      vColor = aVertexColor;
     }
-`;
+  `;
+  // Fragment shader - compute the color of each pixel of the primitive being drawn
+//   const fsSource = `
+//   precision mediump float;
+//   uniform vec4 uSquareColor;  
+//   void main() {
+//         //gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); // Black
+//         gl_FragColor = uSquareColor;
+//     }
+// `;
+// Fragment shader program
+
+const fsSource = `
+    precision mediump float;
+    varying lowp vec4 vColor;
+    uniform vec4 uSquareColor;
+
+    void main(void) {
+      gl_FragColor = uSquareColor;
+      gl_FragColor = vColor;
+    }
+  `;
 
   /**
    * Initialize a shader program; this is where all the lighting
@@ -55,19 +83,34 @@ void main() {
 
   
 
-  const programInfo = {
-    program: shaderProgram,
-    attribLocations: {
-      vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
-    },
-    uniformLocations: {
-      // squareColor: gl.getUniformLocation(shaderProgram, 'uSquareColor'),
-      projectionMatrix: gl.getUniformLocation(shaderProgram,
-        "uProjectionMatrix"),
-      modelViewMatrix: gl.getUniformLocation(shaderProgram,
-        "uModelViewMatrix"),
-    },
-  };
+  // const programInfo = {
+  //   program: shaderProgram,
+  //   attribLocations: {
+  //     vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
+  //   },
+  //   uniformLocations: {
+  //     // squareColor: gl.getUniformLocation(shaderProgram, 'uSquareColor'),
+  //     projectionMatrix: gl.getUniformLocation(shaderProgram,
+  //       "uProjectionMatrix"),
+  //     modelViewMatrix: gl.getUniformLocation(shaderProgram,
+  //       "uModelViewMatrix"),
+  //   },
+  // };
+  // Collect all the info needed to use the shader program.
+// Look up which attributes our shader program is using
+// for aVertexPosition, aVertexColor and also
+// look up uniform locations.
+const programInfo = {
+  program: shaderProgram,
+  attribLocations: {
+    vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
+    vertexColor: gl.getAttribLocation(shaderProgram, "aVertexColor"),
+  },
+  uniformLocations: {
+    projectionMatrix: gl.getUniformLocation(shaderProgram, "uProjectionMatrix"),
+    modelViewMatrix: gl.getUniformLocation(shaderProgram, "uModelViewMatrix"),
+  },
+};
 
   // Debugging: log uniform locations
   console.log('Projection Matrix Location:', programInfo.uniformLocations.projectionMatrix);
